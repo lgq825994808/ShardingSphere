@@ -1,0 +1,8 @@
+#建表语句，更改表名后缀，可以建不同的表，以满足实际需求。如t_course_2
+CREATE TABLE `t_course_1` (
+  `cid` bigint(20) NOT NULL,
+  `cname` varchar(50) NOT NULL COMMENT '名称',
+  `user_id` bigint(20) NOT NULL COMMENT '用户id',
+  `cstatus` varchar(20) DEFAULT NULL COMMENT '状态',
+  PRIMARY KEY (`cid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
