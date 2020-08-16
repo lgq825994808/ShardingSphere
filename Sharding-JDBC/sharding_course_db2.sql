@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50549
 File Encoding         : 65001
 
-Date: 2020-08-16 18:19:16
+Date: 2020-08-16 22:35:29
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -64,3 +64,20 @@ CREATE TABLE `t_item` (
 -- Records of t_item
 -- ----------------------------
 INSERT INTO `t_item` VALUES ('501820740408967169', 'user', 'a', '启用');
+
+-- ----------------------------
+-- Table structure for t_order
+-- ----------------------------
+DROP TABLE IF EXISTS `t_order`;
+CREATE TABLE `t_order` (
+  `order_id` bigint(20) NOT NULL,
+  `order_name` varchar(255) DEFAULT NULL,
+  `order_money` double(10,2) DEFAULT NULL,
+  PRIMARY KEY (`order_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of t_order
+-- ----------------------------
+INSERT INTO `t_order` VALUES ('501884648796717057', '订单1', '2.50');
+INSERT INTO `t_order` VALUES ('501885066775887873', '订单2', '2.60');

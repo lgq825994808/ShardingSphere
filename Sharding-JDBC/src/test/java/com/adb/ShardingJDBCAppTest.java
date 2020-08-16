@@ -2,9 +2,11 @@ package com.adb;
 
 import com.adb.entity.Course;
 import com.adb.entity.Item;
+import com.adb.entity.Order;
 import com.adb.entity.User;
 import com.adb.mapper.CourseMapper;
 import com.adb.mapper.ItemMapper;
+import com.adb.mapper.OrderMapper;
 import com.adb.mapper.UserMapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.junit.Test;
@@ -26,7 +28,28 @@ public class ShardingJDBCAppTest {
     @Autowired
     private ItemMapper itemMapper;
 
-    //=======================操作公共表t_item==
+    @Autowired
+    private OrderMapper orderMapper;
+
+    @Test
+    public void addOrder(){
+        Order order = new Order();
+        order.setOrderName("订单2");
+        order.setOrderMoney(2.6);
+        orderMapper.insert(order);
+    }
+
+    @Test
+    public void findOrder(){
+        QueryWrapper<Order> wrapper = new QueryWrapper<>();
+        wrapper.eq("order_id",501884648796717057l);
+        Order order = orderMapper.selectOne(wrapper);
+        System.out.println(order);
+    }
+
+
+
+    //=======================操作公共表t_item==对应配制文件为application03.properties的配制文件
     @Test
     public void addItem(){
         Item item = new Item();
