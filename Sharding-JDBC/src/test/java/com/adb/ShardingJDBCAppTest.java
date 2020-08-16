@@ -1,7 +1,11 @@
 package com.adb;
 
 import com.adb.entity.Course;
+import com.adb.entity.Item;
+import com.adb.entity.User;
 import com.adb.mapper.CourseMapper;
+import com.adb.mapper.ItemMapper;
+import com.adb.mapper.UserMapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,6 +19,57 @@ public class ShardingJDBCAppTest {
 
     @Autowired
     private CourseMapper courseMapper;
+
+    @Autowired
+    private UserMapper userMapper;
+
+    @Autowired
+    private ItemMapper itemMapper;
+
+    //=======================操作公共表t_item==
+    @Test
+    public void addItem(){
+        Item item = new Item();
+        item.setCategory("user");
+        item.setCode("a");
+        item.setName("启用");
+        itemMapper.insert(item);
+    }
+
+    @Test
+    public void delIte(){
+        QueryWrapper<Item> wrapper = new QueryWrapper<>();
+        wrapper.eq("item_id",501819555950100481l);
+        itemMapper.delete(wrapper);
+    }
+
+    @Test
+    public void findItem(){
+        QueryWrapper<Item> wrapper = new QueryWrapper<>();
+        wrapper.eq("item_id",501818649607143425l);
+        Item item = itemMapper.selectOne(wrapper);
+        System.out.println(item);
+    }
+
+
+
+    //=======================垂直拆分表t_user==对应配制文件为application03.properties的配制文件
+    @Test
+    public void addUser(){
+        User user = new User();
+        user.setUserName("zhangsan");
+        user.setUserStatus("a");
+        userMapper.insert(user);
+    }
+    @Test
+    public void findUser(){
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.eq("user_id",501803526754664449l);
+        User course = userMapper.selectOne(wrapper);
+        System.out.println(course);
+    }
+
+
 
     //=======================水平分表测试==对应配制文件为application01.properties的配制文件
     @Test
@@ -35,7 +90,7 @@ public class ShardingJDBCAppTest {
         System.out.println(course);
     }
 
-    //=======================水平分库，水平分表测试==================
+    //=======================水平分库，水平分表测试===application02.properties的配制文件===============
     @Test
     public void findCourseDb(){
         QueryWrapper<Course> wrapper = new QueryWrapper<>();
